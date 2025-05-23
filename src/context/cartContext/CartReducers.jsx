@@ -34,7 +34,7 @@ const cartReducers = (state, actions) => {
            case "FILTER_CART" :
            return {
              ...state,
-             cartItems : actions.payload  
+             cartItems : actions.payload,
            }
 
            case "TOTALPRICE" :

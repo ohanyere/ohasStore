@@ -1,32 +1,27 @@
 import Button from "../button/Button";
 import { BUTTON_TYPE_CLASSES } from "../button/Button";
-import { useContext , useEffect} from "react";
-import cartActions from "../../context/cartContext/CartActions";
-import { cartContext } from "../../context/cartContext/CartContext";
+import { useEffect } from "react";
+import {addToCart} from "../../features/cart/cartSlice"
+import { useDispatch, useSelector } from "react-redux";
+import {inCreaseQauntity, cartTotal } from "../../features/cart/cartSlice"
 import "./product.scss"
 const Product = ({productData}) => {
     const {name,imageUrl, price} = productData
-    // console.log(name);
+    const {cartItems,totalQuantity} = useSelector(state => state.cart)
+    const dispatch = useDispatch()
     
-    const {cartItems, dispatch} = useContext(cartContext)
+    // const {cartItems, dispatch} = useContext(cartContext)
 
     useEffect(() => {
-        const cartCount =  cartActions.cartCount(cartItems)
-        dispatch({
-            type : "CARTCOUNT",
-            payload : cartCount
-        })
+        dispatch(cartTotal(cartItems))
     }, [cartItems])
 
     const addCart = () => {
-        const suo =  cartActions.addCart(cartItems, productData)
-        console.log(suo);
+        console.log(cartItems);
+        console.log(productData);
         
-        dispatch({
-            type : "ADD_CART",
-            payload : suo
-        })
-        
+        dispatch(addToCart(productData))
+        // console.log(productData);
     }
 
 

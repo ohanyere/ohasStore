@@ -1,17 +1,14 @@
 import "./checkout.scss"
-import { useContext, useEffect } from "react"
-import { cartContext } from "../../context/cartContext/CartContext"
-import cartActions from "../../context/cartContext/CartActions"
+import {useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import {cartTotal} from "../../features/cart/cartSlice"
 import CheckoutItem from "../Checkout-Item/Checkout-item"
+import PaymentForm from "../PaymentForm/PaymentForm"
 const Checkout = () => {
-    const {cartItems,dispatch, cartPrice} = useContext(cartContext)
-    
+    const {cartItems,cartPrice} = useSelector(state => state.cart)
+    const dispatch = useDispatch()
     useEffect(() => {
-        const sort = cartActions.cartPrice(cartItems)
-        dispatch({
-            type : "TOTALPRICE",
-            payload : sort
-        })
+        dispatch(cartTotal(cartItems))
     }, [cartItems])
     return (
         <div className='checkout-container'>
@@ -36,6 +33,7 @@ const Checkout = () => {
             <CheckoutItem key={cartItem.id} checkoutitem={cartItem} />
           ))}
           <div className='total'>TOTAL: ${cartPrice}</div>
+          <PaymentForm />
         </div>
       );
 }

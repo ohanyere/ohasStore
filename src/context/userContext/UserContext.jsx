@@ -18,7 +18,6 @@ const UserProvider = ({children}) => {
            
             if(isMounted){
                 onAuthStateChanged(auth, (user) => {
-                    console.log(user);
                     if(user){
                         dispatch({
                             type : "SETUSER",

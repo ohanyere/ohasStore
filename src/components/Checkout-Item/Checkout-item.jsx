@@ -1,16 +1,12 @@
 import "./checkout-item.scss"
-import { useContext } from "react";
-import { cartContext } from "../../context/cartContext/CartContext";
-import cartActions from "../../context/cartContext/CartActions";
+import { useDispatch, useSelector } from "react-redux"
+import {addToCart} from "../../features/cart/cartSlice"
 const CheckoutItem = ({checkoutitem}) => {
     const {imageUrl, name, quantity, price} = checkoutitem
-    const {dispatch, cartItems} = useContext(cartContext)
+    const {cartItems} = useSelector(state => state.cart)
+    const dispatch = useDispatch()
     const onIncrement = (productToAdd) => {
-        const sup = cartActions.addCart(cartItems, productToAdd) 
-            dispatch({
-            type : "ADD_CART",
-            payload : sup
-        })
+        dispatch(addToCart(cartItems, productToAdd))
     }
         const onDecrement = (productToRemove) => {
             const sup = cartActions.removeCart(cartItems, productToRemove) 
@@ -48,8 +44,7 @@ const CheckoutItem = ({checkoutitem}) => {
         &#10005;
       </div>
     </div>
-        
-        </>
+      </>
     );
 }
  

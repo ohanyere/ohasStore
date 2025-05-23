@@ -4,7 +4,9 @@ const ProductReducer = (state, action) => {
             return{
                 ...state,
                 Products : action.payload,
-                loading : false
+                loading : false,
+                
+
                 
             }
             break;

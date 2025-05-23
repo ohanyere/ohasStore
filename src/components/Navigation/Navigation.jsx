@@ -3,16 +3,13 @@ import crown from "../../assets/crown.svg"
 import './Navigation.scss';
 import CartIcon from '../cartIcon/CartIcon';
 import { getAuth } from 'firebase/auth';
-import { userContext } from '../../context/userContext/UserContext';
-import { useContext } from 'react';
-import { cartContext } from '../../context/cartContext/CartContext';
-
+import { useSelector } from 'react-redux';
 import CartdropDown from '../cartDropdown/CartdropDown';
 const Navigation = () => {
-    const {user, isSuccessful} = useContext(userContext)
-    const{toggleCart}= useContext(cartContext)
+    const {user} = useSelector(state => state.auth)
+    const {isCartOpen} = useSelector(state => state.cart)
+  
     const auth = getAuth()
-
     const onSignOut = () =>  auth.signOut()
 
     
@@ -24,7 +21,7 @@ const Navigation = () => {
       <div className='navigation'>
         <Link className='logo-container logo' to='/'>
           {/* <CrwnLogo className='logo' /> */}
-          <img src={crown} className='logo' alt="c" />
+          <img src={crown} className='logo' alt="logo" />
         </Link>
         <div className='nav-links-container'>
           <Link className='nav-link' to='/shop'>
@@ -42,7 +39,7 @@ const Navigation = () => {
           </>}
             <CartIcon  />
         </div>
-        {toggleCart && <CartdropDown />}
+        {isCartOpen && <CartdropDown />}
       </div>
     </>
   );

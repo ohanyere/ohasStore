@@ -45,10 +45,7 @@ const SignInForm = () => {
  }
 
   const handleChange = (event) => {
-    console.log(444);
-    
     const { name, value } = event.target;
-
     setFormFields({ ...formFields, [name]: value });
   };
 

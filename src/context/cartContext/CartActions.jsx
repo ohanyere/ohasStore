@@ -12,8 +12,8 @@ const addCart = (cartItems, productToAdd) => {
         return    cartItems.map((item) => item.id === productToAdd.id ? {...item, quantity : item.quantity +1} : item )
     }
 
-        const itemRetured = [...cartItems, {...productToAdd, quantity : 1}]
-    return itemRetured
+    return  [...cartItems, {...productToAdd, quantity : 1}]
+    
 }
 
 const removeCart = (cartItems, productToRemove) => {
@@ -21,12 +21,9 @@ const removeCart = (cartItems, productToRemove) => {
     console.log(findProduct);
     
     if(findProduct.quantity === 1){
-     const fil =   cartItems.filter((item) => item.id !== productToRemove.id)
-     console.log(fil);
-     
-     return fil
+     return cartItems.filter((item) => item.id !== productToRemove.id)
+
     }
-        // console.log(findProduct)
         
     return cartItems.map((item) => item.id === productToRemove.id ? {...item, quantity : item.quantity - 1} : item)
 }
